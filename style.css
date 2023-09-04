@@ -56,7 +56,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-
 }
 
 .imageProduit{
@@ -66,4 +65,10 @@ body {
 
 .logo{
     box-sizing: border-box;
+}
+
+
+.alligne_colonne button{
+    padding: 1rem;
+    margin: 0;
 }
