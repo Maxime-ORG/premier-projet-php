@@ -1,30 +1,42 @@
 body {
     margin: 0;
+    background-color: #EDE1BF;
 }
 
 .colonneCentrale{
     display: grid;
     grid-template-columns: 1.5fr 1fr;
-    border: 0.02rem solid;
     max-width: 1200px;
     margin: auto;
     padding: 0.5rem;
-    background-color: #F0F0F2;
+    background-color: #EDE1BF;
 }
 
 .footer{
     display: flex;
     justify-content: center;
-    border: 0.02rem solid;
+    border-top: 0.02rem solid;
+    border-bottom: 0.02rem solid;
     gap: 0.5rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
+    background-color: #E8D9AE;
 }
 
 .header{
-    border: 0.02rem solid;
+    border-top: 0.02rem solid;
+    border-bottom: 0.02rem solid;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+
+
+    background-color: #E8D9AE;
+}
+.headerRow1{
+
+}
+
+.headerRow2{
     gap: 0.5rem;
     padding-right: 2rem;
     padding-top: 2rem;
@@ -52,3 +64,6 @@ body {
     max-height: 100%;
 }
 
+.logo{
+    box-sizing: border-box;
+}

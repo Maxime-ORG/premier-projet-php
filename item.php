@@ -3,7 +3,6 @@ $lienImage1 = "./.image/gyroscope-scientifique.jpeg";
 $lienImage2 = "./.image/gyroscope-scientifique.jpeg";
 $nomProduit = "Gyroscope";
 $prixProduit = "35 €";
-
 ?>
 
 <!doctype html>
@@ -17,6 +16,11 @@ $prixProduit = "35 €";
 </head>
 <body>
     <div class="header">
+        <div class="headerRow1">
+
+        </div>
+
+        <div class="headerRow2">
         <a> Trouver un magasin </a>
         <a> | </a>
         <a> Aide </a>
@@ -24,6 +28,7 @@ $prixProduit = "35 €";
         <a> Nous rejoindre </a>
         <a> |</a>
         <a> S'identifier </a>
+        </div>
     </div>
     <div class="colonneCentrale">
         <div class="colonneCentrale-colonne1">
@@ -35,8 +40,6 @@ $prixProduit = "35 €";
             <p> <?php echo $prixProduit ?> </p>
             </div>
         </div>
-
-
     </div>
 
     <div class="footer">
