@@ -70,5 +70,13 @@ body {
 
 .alligne_colonne button{
     padding: 1rem;
-    margin: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.alligne_colonne H2{
+    margin-bottom: 1.5rem;
+}
+
+.alligne_colonne P{
+    margin: 0.4rem;
 }

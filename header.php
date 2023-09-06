@@ -1,6 +1,5 @@
 <?php
 $lienImage1 = "./.image/gyroscope-scientifique.jpeg";
-$lienImage2 = "./.image/gyroscope-scientifique.jpeg";
 $nomProduit = "Gyroscope";
 $prixProduit = "1035 €";
 ?>
