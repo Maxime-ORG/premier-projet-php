@@ -1,9 +1,3 @@
-<?php
-$lienImage1 = "./.image/gyroscope-scientifique.jpeg";
-$nomProduit = "Gyroscope";
-$prixProduit = "1035 €";
-?>
-
 <!doctype html>
 <html lang="fr">
 <head>
