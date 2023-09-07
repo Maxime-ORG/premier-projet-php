@@ -32,3 +32,4 @@ foreach($products as  $value){
         echo $value2;
     }
 }
+

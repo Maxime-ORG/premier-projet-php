@@ -1,12 +1,9 @@
 <?php
 function formatPrice($price){
-    if ($price != null) {
-        echo $price / 100;
-        echo "€";
-    }
-    else {
-        return null;
-    }
+    $prixFormat = "";
+    $prixFormat = $prixFormat.number_format($price/100, 2, ".", " ");
+    $prixFormat = $prixFormat ."€";
+    return $prixFormat;
 }
 
 function priceExcludingVAT($PriceTTC){

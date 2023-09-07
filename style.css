@@ -12,6 +12,15 @@ body {
     background-color: #EDE1BF;
 }
 
+.colonneCart{
+    display: grid;
+    grid-template-columns: 2.5fr 1fr 1fr 1fr;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0.5rem;
+    background-color: #EDE1BF;
+}
+
 .footer{
     display: flex;
     justify-content: center;
