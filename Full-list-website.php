@@ -1,9 +1,7 @@
 <?php include_once "header.php"?>
 <?php include_once "my-function.php"?>
-<?php include_once "multidimensional-catalog.php"?>
 
-
-<?php foreach($products as  $productKey => $product){
+<?php foreach(catalog() as  $productKey => $product){
    include "item.php";
 }
 ?>
