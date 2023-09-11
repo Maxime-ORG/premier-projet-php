@@ -96,7 +96,15 @@ H2 {
     background-color: #E8D9AE;
 }
 .headerRow1{
+    gap: 0.5rem;
+    padding-left: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
 
+.headerRow1 a{
+    text-decoration: none;
+    color: black;
 }
 
 .headerRow2{

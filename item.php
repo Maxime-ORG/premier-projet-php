@@ -16,11 +16,10 @@
             <?php endif; ?>
             <p> poids : <?php echo catalog()[$productKey]["weight"] ?> G </p>
 
-            <form action="cart.php" method="post">
+            <form action="Full-list-website.php" method="post">
                 <label for="quantity">quantité :</label>
                 <input type="number" id="quantity" name="quantity" value="0" min="0" max="100"> <br>
                 <input type="submit" name="envoi" alt="ok" value="ajouter au panier" class="ajoutPanierBoutonForm">
-
                 <input type="hidden" id="productKey" name="productKey" value="<?php echo $productKey ?>" />
             </form>
         </div>

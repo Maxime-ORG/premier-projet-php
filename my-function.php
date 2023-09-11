@@ -23,25 +23,40 @@ function discountedPrice($Price, $Discount){
     }
 }
 
-function prixTransport($transporteur, $prixTTC, $poids, $quantity){
-    $poids = $poids*$quantity;
+function prixTotal(){
+    $total = 0;
+    foreach ($_SESSION['tableauPanier'] as $AttributProduitKey => $AttributProduit){
+        if ($_SESSION['tableauPanier'][$AttributProduitKey]["discount"] != 0)
+            $total = $total + $_SESSION['tableauPanier'][$AttributProduitKey]["quantity"]*$_SESSION['tableauPanier'][$AttributProduitKey]["priceTTC"]/100 * (100- $_SESSION['tableauPanier'][$AttributProduitKey]["discount"]);
+        else
+            $total = $total + $_SESSION['tableauPanier'][$AttributProduitKey]["quantity"]*$_SESSION['tableauPanier'][$AttributProduitKey]["priceTTC"];
+    }
+    return $total;
+}
+
+function prixTransport($transporteur){
+    $poids = 0;
+    $prixTotal = prixTotal();
+    foreach ($_SESSION['tableauPanier'] as $AttributProduitKey => $AttributProduit){
+        $poids = $poids + $_SESSION['tableauPanier'][$AttributProduitKey]["weight"]*$_SESSION['tableauPanier'][$AttributProduitKey]["quantity"];
+    }
     if ($transporteur == "La Poste"){
-        if($poids >= 0 and $poids < 500){
+        if($poids >= 0 and $poids < 5000){
             return 300;
         }
-        elseif ($poids >= 500 and $poids < 20000){
-            return $prixTTC*0.1*100;
+        elseif ($poids >= 5000 and $poids < 20000){
+            return $prixTotal * 0.1;
         }
         else{
             return 0;
         }
     }
     elseif ($transporteur == "FedEx"){
-        if($poids >= 0 and $poids < 500){
+        if($poids >= 0 and $poids < 5000){
             return 500;
         }
-        elseif ($poids >= 500 and $poids < 20000){
-            return $prixTTC*0.05*100;
+        elseif ($poids >= 5000 and $poids < 20000){
+            return $prixTotal * 0.05;
         }
         else{
             return 0;
@@ -81,4 +96,14 @@ function catalog(){
         ],
     ];
 }
+
+function insertTableauPanier($quantite, $IDtableauPanier){
+    foreach (catalog()[$IDtableauPanier] as $AttributProduitKey => $AttributProduit){
+        $_SESSION["tableauPanier"][$IDtableauPanier][$AttributProduitKey] = catalog()[$IDtableauPanier][$AttributProduitKey];
+    }
+    $_SESSION["tableauPanier"][$IDtableauPanier]["quantity"] = $quantite;
+}
+
+
+
 

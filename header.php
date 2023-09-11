@@ -10,7 +10,9 @@
 <body>
 <div class="header">
     <div class="headerRow1">
-
+        <a href = "cart2.php">Panier</a>
+        <a> | </a>
+        <a href = "Full-list-website.php">Liste Produits</a>
     </div>
 
     <div class="headerRow2">
