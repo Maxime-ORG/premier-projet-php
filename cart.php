@@ -58,6 +58,7 @@
                     <?php echo formatPrice($_POST['quantity']*catalog()[$_POST['productKey']]["priceTTC"])?>
                 <?php endif; ?>
             </p>
+
         </div>
     </div>
 

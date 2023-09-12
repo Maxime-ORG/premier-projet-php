@@ -98,10 +98,19 @@ function catalog(){
 }
 
 function insertTableauPanier($quantite, $IDtableauPanier){
+    if (isset($_SESSION["tableauPanier"][$IDtableauPanier]["quantity"])){
+        $_SESSION["tableauPanier"][$IDtableauPanier]["quantity"] = $_SESSION["tableauPanier"][$IDtableauPanier]["quantity"] + $quantite;
+    }
+    else {
     foreach (catalog()[$IDtableauPanier] as $AttributProduitKey => $AttributProduit){
         $_SESSION["tableauPanier"][$IDtableauPanier][$AttributProduitKey] = catalog()[$IDtableauPanier][$AttributProduitKey];
     }
     $_SESSION["tableauPanier"][$IDtableauPanier]["quantity"] = $quantite;
+    }
+}
+
+function removeTableauPanier($IDProduit){
+    unset($_SESSION["tableauPanier"][$IDProduit]) ;
 }
 
 

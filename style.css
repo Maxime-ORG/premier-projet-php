@@ -35,7 +35,7 @@ H2 {
 
 .colonneCart{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 4fr;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -53,9 +53,14 @@ H2 {
     background-color: #EDE1BF;
 }
 
+table{
+    min-width: 100%;
+    min-height: 100%;
+}
+
 .colonneCart3{
     display: grid;
-    grid-template-columns: 3.3fr 1fr 1fr;
+    grid-template-columns: 1.5fr 2fr 2fr;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
