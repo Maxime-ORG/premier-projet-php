@@ -3,18 +3,18 @@
 
 <div class="colonneCentrale">
     <div class="colonneCentrale-colonne1">
-        <img class="imageProduit" src= <?php echo catalog()[$productKey]["picture_url"] ?> alt="imageProduit">
+        <img class="imageProduit" src= <?php echo $product["picture_url"] ?> alt="imageProduit">
     </div>
     <div class="colonneCentrale-colonne2">
         <div class = "alligne_colonne">
-            <H2><?php echo catalog()[$productKey]["name"] ?></H2>
-            <p> prix TTC : <?php echo formatPrice(catalog()[$productKey]["priceTTC"])?> </p>
-            <p> prix HT : <?php echo formatPrice(catalog()[$productKey]["priceHT"]) ?> </p>
-            <?php if (catalog()[$productKey]["discount"] != 0): ?>
-            <p> remise : -<?php echo catalog()[$productKey]["discount"] ?> % </p>
-            <p> prix avec remise : <?php echo formatPrice(discountedPrice(catalog()[$productKey]["priceTTC"],catalog()[$productKey]["discount"])) ?></p>
+            <H2><?php echo $product["name"] ?></H2>
+            <p> prix TTC : <?php echo formatPrice( $product["priceTTC"])?> </p>
+            <p> prix HT : <?php echo formatPrice( $product["priceHT"]) ?> </p>
+            <?php if ( $product["discount"] != 0): ?>
+            <p> remise : -<?php echo $product["discount"] ?> % </p>
+            <p> prix avec remise : <?php echo formatPrice(discountedPrice( $product["priceTTC"], $product["discount"])) ?></p>
             <?php endif; ?>
-            <p> poids : <?php echo catalog()[$productKey]["weight"] ?> G </p>
+            <p> poids : <?php echo $product["weight"] ?> G </p>
 
             <form action="Full-list-website.php" method="post">
                 <label for="quantity">quantité :</label>

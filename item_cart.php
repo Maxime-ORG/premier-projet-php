@@ -1,8 +1,11 @@
-<?php include_once "my-function.php";?>
+<?php include_once "my-function.php";
+$tableauPanier = $_SESSION['tableauPanier']?>
+
+
 
 <div class="colonneCart">
     <div class="colonneCentrale-colonne1">
-        <img class="imageProduit" src= <?php echo $_SESSION["tableauPanier"][$IDProduit]["picture_url"] ?> alt="imageProduit">
+        <img class="imageProduit" src= <?php echo $tableauPanier[$IDProduit]["picture_url"] ?> alt="imageProduit">
     </div>
 
     <div>
@@ -17,48 +20,48 @@
             </thead>
             <tbody>
                 <tr>
-                    <th><?php echo $_SESSION["tableauPanier"][$IDProduit]["name"]; ?></th>
-                    <th><?php if ($_SESSION["tableauPanier"][$IDProduit]["discount"] != 0): ?>
-                            <?php echo formatPrice(discountedPrice($_SESSION["tableauPanier"][$IDProduit]["priceTTC"],$_SESSION["tableauPanier"][$IDProduit]["discount"])) ?>
-                        <?php else:?>
-                            <?php echo formatPrice($_SESSION["tableauPanier"][$IDProduit]["priceTTC"])?>
-                        <?php endif; ?></th>
-                    <th><?php echo $_SESSION["tableauPanier"][$IDProduit]["quantity"]; ?></th>
-                    <th><?php if ($_SESSION["tableauPanier"][$IDProduit]["discount"] != 0): ?>
-                            <?php echo formatPrice($_SESSION["tableauPanier"][$IDProduit]["quantity"]*discountedPrice($_SESSION["tableauPanier"][$IDProduit]["priceTTC"],$_SESSION["tableauPanier"][$IDProduit]["discount"])) ?>
-                        <?php else:?>
-                            <?php echo formatPrice($_SESSION["tableauPanier"][$IDProduit]["quantity"]*$_SESSION["tableauPanier"][$IDProduit]["priceTTC"])?>
-                        <?php endif; ?></th>
+                    <th><?php echo $tableauPanier[$IDProduit]["name"]; ?></th>
+                    <th><?php if ($tableauPanier[$IDProduit]["discount"] != 0):
+                            echo formatPrice(discountedPrice($tableauPanier[$IDProduit]["priceTTC"],$tableauPanier[$IDProduit]["discount"]));
+                        else:
+                            echo formatPrice($tableauPanier[$IDProduit]["priceTTC"]);
+                        endif; ?></th>
+                    <th><?php echo $tableauPanier[$IDProduit]["quantity"]; ?></th>
+                    <th><?php if ($tableauPanier[$IDProduit]["discount"] != 0):
+                            echo formatPrice($tableauPanier[$IDProduit]["quantity"]*discountedPrice($tableauPanier[$IDProduit]["priceTTC"],$tableauPanier[$IDProduit]["discount"]));
+                        else:
+                            echo formatPrice($tableauPanier[$IDProduit]["quantity"]*$tableauPanier[$IDProduit]["priceTTC"]);
+                        endif; ?></th>
                 </tr>
                 <tr>
                     <th></th>
                     <th></th>
                     <th>Total HT</th>
-                    <th><?php if ($_SESSION["tableauPanier"][$IDProduit]["discount"] != 0): ?>
-                            <?php echo formatPrice($_SESSION["tableauPanier"][$IDProduit]["quantity"]*discountedPrice($_SESSION["tableauPanier"][$IDProduit]["priceHT"],$_SESSION["tableauPanier"][$IDProduit]["discount"])) ?>
-                        <?php else:?>
-                            <?php echo formatPrice($_SESSION["tableauPanier"][$IDProduit]["quantity"]*$_SESSION["tableauPanier"][$IDProduit]["priceHT"])?>
-                        <?php endif; ?></th>
+                    <th><?php if ($tableauPanier[$IDProduit]["discount"] != 0):
+                            echo formatPrice($tableauPanier[$IDProduit]["quantity"]*discountedPrice($tableauPanier[$IDProduit]["priceHT"],$tableauPanier[$IDProduit]["discount"]));
+                        else:
+                            echo formatPrice($tableauPanier[$IDProduit]["quantity"]*$tableauPanier[$IDProduit]["priceHT"]);
+                        endif; ?></th>
                 </tr>
                 <tr>
                     <th></th>
                     <th></th>
                     <th>TVA</th>
-                    <th><?php if ($_SESSION["tableauPanier"][$IDProduit]["discount"] != 0): ?>
-                            <?php echo formatPrice($_SESSION["tableauPanier"][$IDProduit]["quantity"]*priceVAT(discountedPrice($_SESSION["tableauPanier"][$IDProduit]["priceTTC"],$_SESSION["tableauPanier"][$IDProduit]["discount"]))) ?>
-                        <?php else:?>
-                            <?php echo formatPrice($_SESSION["tableauPanier"][$IDProduit]["quantity"]*priceVAT($_SESSION["tableauPanier"][$IDProduit]["priceTTC"]))?>
-                        <?php endif; ?></th>
+                    <th><?php if ($tableauPanier[$IDProduit]["discount"] != 0):
+                            echo formatPrice($tableauPanier[$IDProduit]["quantity"]*priceVAT(discountedPrice($tableauPanier[$IDProduit]["priceTTC"],$tableauPanier[$IDProduit]["discount"])));
+                        else:
+                            echo formatPrice($tableauPanier[$IDProduit]["quantity"]*priceVAT($tableauPanier[$IDProduit]["priceTTC"]));
+                        endif; ?></th>
                 </tr>
                 <tr>
                     <th></th>
                     <th></th>
                     <th>Total TTC</th>
-                    <th><?php if ($_SESSION["tableauPanier"][$IDProduit]["discount"] != 0): ?>
-                            <?php echo formatPrice($_SESSION["tableauPanier"][$IDProduit]["quantity"]*discountedPrice($_SESSION["tableauPanier"][$IDProduit]["priceTTC"],$_SESSION["tableauPanier"][$IDProduit]["discount"])) ?>
-                        <?php else:?>
-                            <?php echo formatPrice($_SESSION["tableauPanier"][$IDProduit]["quantity"]*$_SESSION["tableauPanier"][$IDProduit]["priceTTC"])?>
-                        <?php endif; ?></th>
+                    <th><?php if ($tableauPanier[$IDProduit]["discount"] != 0):
+                            echo formatPrice($tableauPanier[$IDProduit]["quantity"]*discountedPrice($tableauPanier[$IDProduit]["priceTTC"],$tableauPanier[$IDProduit]["discount"]));
+                        else:
+                            echo formatPrice($tableauPanier[$IDProduit]["quantity"]*$tableauPanier[$IDProduit]["priceTTC"]);
+                        endif; ?></th>
                 </tr>
             </tbody>
         </table>

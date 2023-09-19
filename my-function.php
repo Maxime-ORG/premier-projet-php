@@ -23,22 +23,26 @@ function discountedPrice($Price, $Discount){
     }
 }
 
-function prixTotal(){
+function prixTotal($tableauPanier){
     $total = 0;
-    foreach ($_SESSION['tableauPanier'] as $AttributProduitKey => $AttributProduit){
-        if ($_SESSION['tableauPanier'][$AttributProduitKey]["discount"] != 0)
-            $total = $total + $_SESSION['tableauPanier'][$AttributProduitKey]["quantity"]*$_SESSION['tableauPanier'][$AttributProduitKey]["priceTTC"]/100 * (100- $_SESSION['tableauPanier'][$AttributProduitKey]["discount"]);
+    foreach ($tableauPanier as $AttributProduitKey => $AttributProduit){
+        if ($tableauPanier[$AttributProduitKey]["discount"] != 0)
+            $total = $total + $tableauPanier[$AttributProduitKey]["quantity"]*$tableauPanier[$AttributProduitKey]["priceTTC"]/100 * (100- $tableauPanier[$AttributProduitKey]["discount"]);
         else
-            $total = $total + $_SESSION['tableauPanier'][$AttributProduitKey]["quantity"]*$_SESSION['tableauPanier'][$AttributProduitKey]["priceTTC"];
+            $total = $total + $tableauPanier[$AttributProduitKey]["quantity"]*$tableauPanier[$AttributProduitKey]["priceTTC"];
     }
     return $total;
 }
 
-function prixTransport($transporteur){
+
+
+
+
+function prixTransport($transporteur, $tableauPanier){
     $poids = 0;
-    $prixTotal = prixTotal();
-    foreach ($_SESSION['tableauPanier'] as $AttributProduitKey => $AttributProduit){
-        $poids = $poids + $_SESSION['tableauPanier'][$AttributProduitKey]["weight"]*$_SESSION['tableauPanier'][$AttributProduitKey]["quantity"];
+    $prixTotal = prixTotal($tableauPanier);
+    foreach ($tableauPanier as $AttributProduitKey => $AttributProduit){
+        $poids = $poids + $tableauPanier[$AttributProduitKey]["weight"]*$tableauPanier[$AttributProduitKey]["quantity"];
     }
     if ($transporteur == "La Poste"){
         if($poids >= 0 and $poids < 5000){
@@ -97,22 +101,20 @@ function catalog(){
     ];
 }
 
-function insertTableauPanier($quantite, $IDtableauPanier){
-    if (isset($_SESSION["tableauPanier"][$IDtableauPanier]["quantity"])){
-        $_SESSION["tableauPanier"][$IDtableauPanier]["quantity"] = $_SESSION["tableauPanier"][$IDtableauPanier]["quantity"] + $quantite;
+function insertTableauPanier(int $quantite, $IDtableauPanier, $tableauPanier){
+    if (isset($tableauPanier[$IDtableauPanier]["quantity"])){
+        $tableauPanier[$IDtableauPanier]["quantity"] = $tableauPanier[$IDtableauPanier]["quantity"] + $quantite;
     }
     else {
-    foreach (catalog()[$IDtableauPanier] as $AttributProduitKey => $AttributProduit){
-        $_SESSION["tableauPanier"][$IDtableauPanier][$AttributProduitKey] = catalog()[$IDtableauPanier][$AttributProduitKey];
+        foreach (catalog()[$IDtableauPanier] as $AttributProduitKey => $AttributProduit) {
+            $tableauPanier[$IDtableauPanier][$AttributProduitKey] = catalog()[$IDtableauPanier][$AttributProduitKey];
+        }
+        $tableauPanier[$IDtableauPanier]["quantity"] = $quantite;
     }
-    $_SESSION["tableauPanier"][$IDtableauPanier]["quantity"] = $quantite;
-    }
+    $_SESSION['tableauPanier'] = $tableauPanier;
 }
 
 function removeTableauPanier($IDProduit){
     unset($_SESSION["tableauPanier"][$IDProduit]) ;
 }
-
-
-
 

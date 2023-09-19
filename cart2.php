@@ -11,7 +11,7 @@
     }
     ?>
 
-    <?php if (isset($_SESSION["tableauPanier"]) and $_SESSION["tableauPanier"]!= array()) {?>
+    <?php if (isset($_SESSION["tableauPanier"]) and count($_SESSION["tableauPanier"]) > 0) {?>
         <H2> Choix du transporteur </H2>
 
         <div class="colonneCart3">
@@ -34,20 +34,20 @@
             <table>
                 <tr>
                     <th>Total TTC</th>
-                    <th><?php echo formatPrice(prixTotal()) ?></th>
+                    <th><?php echo formatPrice(prixTotal($_SESSION['tableauPanier'])) ?></th>
                 </tr>
                 <tr>
                     <th>Transport</th>
-                    <th><?php if (isset($_POST['transporteur'])) echo formatPrice(prixTransport($_POST['transporteur'])) ?></th>
+                    <th><?php if (isset($_POST['transporteur'])) echo formatPrice(prixTransport($_POST['transporteur'],$_SESSION['tableauPanier'])) ?></th>
                 </tr>
                 <tr>
                     <th>Total TTC + Transport</th>
-                    <th><?php if (isset($_POST['transporteur'])) echo formatPrice(prixTransport($_POST['transporteur']) + prixTotal()) ?></th>
+                    <th><?php if (isset($_POST['transporteur'])) echo formatPrice(prixTransport($_POST['transporteur'],$_SESSION['tableauPanier']) + prixTotal($_SESSION['tableauPanier'])) ?></th>
                 </tr>
             </table>
         </div>
     <?php }?>
 
-<?php if (isset($_POST['DeleteOneArticle'])) removeTableauPanier($_POST['FormDeleteProductKey'])?>
-<?php if (isset($_POST['DeleteAll'])) $_SESSION = array() ?>
-<?php include "footer.php"; ?>
+<?php if (isset($_POST['DeleteOneArticle'])) removeTableauPanier($_POST['FormDeleteProductKey']);
+if (isset($_POST['DeleteAll'])) $_SESSION = array();
+include "footer.php"; ?>
