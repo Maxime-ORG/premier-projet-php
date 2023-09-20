@@ -8,11 +8,11 @@
     <div class="colonneCentrale-colonne2">
         <div class = "alligne_colonne">
             <H2><?php echo $product["name"] ?></H2>
-            <p> prix TTC : <?php echo formatPrice( $product["priceTTC"])?> </p>
-            <p> prix HT : <?php echo formatPrice( $product["priceHT"]) ?> </p>
+            <p> prix TTC : <?php echo formatPrice( $product["price"])?> </p>
+            <p> prix HT : <?php echo formatPrice( priceExcludingVAT($product["price"])) ?> </p>
             <?php if ( $product["discount"] != 0): ?>
             <p> remise : -<?php echo $product["discount"] ?> % </p>
-            <p> prix avec remise : <?php echo formatPrice(discountedPrice( $product["priceTTC"], $product["discount"])) ?></p>
+            <p> prix avec remise : <?php echo formatPrice(discountedPrice( $product["price"], $product["discount"])) ?></p>
             <?php endif; ?>
             <p> poids : <?php echo $product["weight"] ?> G </p>
 

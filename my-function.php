@@ -1,7 +1,7 @@
 <?php
 function formatPrice($price){
     $prixFormat = "";
-    $prixFormat = $prixFormat . number_format($price / 100, 2, ".", " ");
+    $prixFormat = $prixFormat . number_format($price , 2, ".", " ");
     $prixFormat = $prixFormat . "€";
     return $prixFormat;
 }
@@ -27,9 +27,9 @@ function prixTotal($tableauPanier){
     $total = 0;
     foreach ($tableauPanier as $AttributProduitKey => $AttributProduit){
         if ($tableauPanier[$AttributProduitKey]["discount"] != 0)
-            $total = $total + $tableauPanier[$AttributProduitKey]["quantity"]*$tableauPanier[$AttributProduitKey]["priceTTC"]/100 * (100- $tableauPanier[$AttributProduitKey]["discount"]);
+            $total = $total + $tableauPanier[$AttributProduitKey]["quantity"]*$tableauPanier[$AttributProduitKey]["price"]/100 * (100- $tableauPanier[$AttributProduitKey]["discount"]);
         else
-            $total = $total + $tableauPanier[$AttributProduitKey]["quantity"]*$tableauPanier[$AttributProduitKey]["priceTTC"];
+            $total = $total + $tableauPanier[$AttributProduitKey]["quantity"]*$tableauPanier[$AttributProduitKey]["price"];
     }
     return $total;
 }
@@ -38,38 +38,24 @@ function prixTotal($tableauPanier){
 
 
 
-function prixTransport($transporteur, $tableauPanier){
-    $poids = 0;
-    $prixTotal = prixTotal($tableauPanier);
-    foreach ($tableauPanier as $AttributProduitKey => $AttributProduit){
-        $poids = $poids + $tableauPanier[$AttributProduitKey]["weight"]*$tableauPanier[$AttributProduitKey]["quantity"];
+function prixTransport(string $nameCarrier){
+
+    $SelectCarrier = $GLOBALS["db"]->prepare('SELECT * FROM carrier WHERE name = :nameCarrier');
+    $SelectCarrier->execute(['nameCarrier' => $nameCarrier]);
+    $SelectedCarrier = $SelectCarrier->fetchAll();
+
+
+    $SumWeight = $GLOBALS["db"]->prepare('SELECT sum(weight) FROM products INNER JOIN cart ON products.id = cart.id_product');
+    $SumWeight->execute();
+    $exSumWeight = $SumWeight->fetchAll();
+
+    if ($exSumWeight[0]["sum(weight)"] >= 0 and $exSumWeight[0]["sum(weight)"] < 5000) {
+        return $SelectedCarrier[0]['full_price'];
+    } elseif ($exSumWeight[0]["sum(weight)"] >= 5000 and $exSumWeight[0]["sum(weight)"] < 20000) {
+        return  $SelectedCarrier[0]['middle_price'];
+    } else {
+        return $SelectedCarrier[0]['lowest_price'];
     }
-    if ($transporteur == "La Poste"){
-        if($poids >= 0 and $poids < 5000){
-            return 300;
-        }
-        elseif ($poids >= 5000 and $poids < 20000){
-            return $prixTotal * 0.1;
-        }
-        else{
-            return 0;
-        }
-    }
-    elseif ($transporteur == "FedEx"){
-        if($poids >= 0 and $poids < 5000){
-            return 500;
-        }
-        elseif ($poids >= 5000 and $poids < 20000){
-            return $prixTotal * 0.05;
-        }
-        else{
-            return 0;
-        }
-    }
-    elseif ($transporteur == "Traineau du père noël"){
-        return 0;
-    }
-    else return null;
 }
 
 function catalog(){
@@ -114,7 +100,9 @@ function insertTableauPanier(int $quantite, $IDtableauPanier, $tableauPanier){
     $_SESSION['tableauPanier'] = $tableauPanier;
 }
 
-function removeTableauPanier($IDProduit){
-    unset($_SESSION["tableauPanier"][$IDProduit]) ;
+function removeTableauPanier(int $IDProduit){
+    echo $IDProduit;
+    $DelProduct = $GLOBALS["db"]->prepare('delete from cart where id = (select id from (select id from cart order by id limit :IDProduit,1) as t)');
+    $DelProduct->execute(["IDProduit" => $IDProduit]);
 }
 

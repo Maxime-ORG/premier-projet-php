@@ -1,21 +1,29 @@
 <?php
-
 try {
-    $db = new PDO('mysql:host=localhost;dbname=e_commerce;charset=utf8', 'root', 'root');
+    $db = new PDO('mysql:host=localhost;dbname=e_commerce;charset=utf8', 'user-e_commerce', '_-3-nO9bt.L*6jS-');
 } catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
 
+$allProductStatement = $db->prepare('SELECT * FROM products');
+$allProductStatement->execute();
+
+
+
+
 include_once "header.php";
 include_once "my-function.php";
 session_start();
-$products = catalog();
+$products = $allProductStatement->fetchAll();
+if (isset($_POST['quantity'])) {
+    $quantity = $_POST['quantity'];
+    $productKey = $_POST['productKey'];
+}
 
-if (isset($_POST['quantity']) and isset($_SESSION['tableauPanier'])) {
-    insertTableauPanier($_POST['quantity'], $_POST['productKey'], $_SESSION['tableauPanier']);
-} elseif (isset($_POST['quantity']) ) {
-    $_SESSION['tableauPanier'] = array();
-    insertTableauPanier($_POST['quantity'], $_POST['productKey'], $_SESSION['tableauPanier']);
+if (isset($_POST['quantity'])) {
+    $addCartQuery= 'INSERT INTO cart (id_product, quantity) VALUES (:id_product, :quantity)';
+    $addCartStatement = $db->prepare($addCartQuery);
+    $addCartStatement->execute(['id_product' => $productKey+1, 'quantity' => $quantity]);
 }
 
 
